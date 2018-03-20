@@ -9,7 +9,7 @@ namespace RealmeyeSharp
 {
     public class Realm
     {
-        public static void GetUserInfo(string IGN)
+        public static void GetUserSummary(string IGN)
         {
             ScrapingBrowser browser = new ScrapingBrowser();
             browser.AllowAutoRedirect = true;
@@ -69,6 +69,13 @@ namespace RealmeyeSharp
                 User.Guild = "Private";
                 User.Created = "Private";
             }
+        }
+
+        public static void GetUserPetStats(string IGN)
+        {
+            ScrapingBrowser browser = new ScrapingBrowser();
+            browser.AllowAutoRedirect = true;
+            browser.AllowMetaRedirect = true;
 
             try
             {
@@ -97,6 +104,24 @@ namespace RealmeyeSharp
                 User.Petlvl1 = "Private";
                 User.Petlvl2 = "Private";
                 User.Petlvl3 = "Private";
+            }
+        }
+
+        public static void GetUserDescription(string IGN)
+        {
+            ScrapingBrowser browser = new ScrapingBrowser();
+            browser.AllowAutoRedirect = true;
+            browser.AllowMetaRedirect = true;
+
+            try
+            {
+                WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/player/" + IGN));
+                var Table = Main.Html.CssSelect(".well description");
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

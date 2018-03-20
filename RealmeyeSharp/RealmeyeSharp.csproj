@@ -6,15 +6,35 @@
     <Authors>Lasse Holt</Authors>
     <Company>TheNorthJyde</Company>
     <Description>Gets user infomation on realmeye.
-* Fame * Chars * Skins * Rank * Account fame * Guild * Created * Pets Stats</Description>
+* Fame * Chars * Skins * Rank * Account fame * Guild * Created * Pets Stats
+Realm.GetUserSummary(String IGN), Realm.GetUserPetStats(String IGN).
+use User.Name to retrive data and etc.</Description>
     <Copyright>Tuesday, March 20, 2018 (3/20/2018)</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/TheNorthJyde/License/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>ROTMG</PackageTags>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="4.3.4" />
     <PackageReference Include="HtmlAgilityPack" Version="1.7.1" />
     <PackageReference Include="ScrapySharp" Version="2.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

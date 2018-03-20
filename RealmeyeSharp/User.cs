@@ -21,5 +21,8 @@ namespace RealmeyeSharp
         public static string Petlvl1 { get; set; }
         public static string Petlvl2 { get; set; }
         public static string Petlvl3 { get; set; }
+        public static string Desc1 { get; set; }
+        public static string Desc2 { get; set; }
+        public static string Desc3 { get; set; }
     }
 }
