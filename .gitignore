@@ -1,32 +1,17 @@
-# Prerequisites
-*.d
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll.gitignore
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
 *.exe
-*.out
-*.app
+*.o
+*.so
+*.sln
+Realm.cs
+User.cs
+Resources.Designer.cs
+*.csproj
+*.resx
+*.pubxml
+*.config
