@@ -8,8 +8,6 @@
 *.o
 *.so
 *.sln
-Realm.cs
-User.cs
 Resources.Designer.cs
 *.csproj
 *.resx
