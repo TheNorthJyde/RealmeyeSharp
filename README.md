@@ -1,7 +1,11 @@
 # RealmeyeSharp
-gets information on realmeye to string variable in c#
+Gets information on realmeye to string variable in c#
 
-use 
+
+# Example
+Go to tester and look at the Program.cs 
+
+How to use:
 Realm.GetUserSummary(string IGN)
 Realm.GetUserPetStats(String IGN)
 Realm.GetUserDescription(string IGN).
@@ -13,3 +17,9 @@ User.Name and etc
 Install-Package RealmeyeSharp -Version 1.1.0
 
 Or use My NuGet Package manager and search after: RealmeyeSharp
+
+# License
+This project is licensed under the MIT License - see the LICENSE.md file for details
+
+# Author
+My IGN in realm is: Celestial
