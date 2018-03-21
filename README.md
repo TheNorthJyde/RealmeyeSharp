@@ -19,7 +19,7 @@ Install-Package RealmeyeSharp -Version 1.1.0
 Or use My NuGet Package manager and search after: RealmeyeSharp
 
 # License
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 # Author
-My IGN in realm is: Celestial
+My IGN in realm is: [Celestial](https://www.realmeye.com/player/Celestial)
