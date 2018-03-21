@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2011
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealmeyeSharp", "RealmeyeSharp\RealmeyeSharp.csproj", "{83E5B500-B71E-465D-8416-98E97061F011}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tester", "Tester\Tester.csproj", "{52B0C073-7475-41DA-BF6D-1A5831FA18FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{83E5B500-B71E-465D-8416-98E97061F011}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83E5B500-B71E-465D-8416-98E97061F011}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83E5B500-B71E-465D-8416-98E97061F011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B0C073-7475-41DA-BF6D-1A5831FA18FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B0C073-7475-41DA-BF6D-1A5831FA18FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B0C073-7475-41DA-BF6D-1A5831FA18FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B0C073-7475-41DA-BF6D-1A5831FA18FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

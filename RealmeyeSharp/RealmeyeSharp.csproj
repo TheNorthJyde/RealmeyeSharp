@@ -11,10 +11,10 @@ Realm.GetUserSummary(String IGN), Realm.GetUserPetStats(String IGN), Realm.GetUs
 use User.Name to retrive data and etc.</Description>
     <Copyright>Tuesday, March 20, 2018 (3/20/2018)</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://github.com/TheNorthJyde/RealmSharp/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageTags>ROTMG</PackageTags>
-    <Version>1.1.0</Version>
-    <PackageProjectUrl>https://github.com/TheNorthJyde/RealmSharp</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/TheNorthJyde/RealmeyeSharp/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageTags>ROTMG RealmeyeAPI Realmeye Realm</PackageTags>
+    <Version>1.1.1</Version>
+    <PackageProjectUrl>https://github.com/TheNorthJyde/RealmeyeSharp</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
