@@ -116,12 +116,16 @@ namespace RealmeyeSharp
             try
             {
                 WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/player/" + IGN));
-                var Table = Main.Html.CssSelect(".well description");
+                var Table = Main.Html.CssSelect("#d").First();
+                User.Desc1 = Table.FirstChild.InnerText;
+                User.Desc2 = Table.FirstChild.NextSibling.InnerText;
+                User.Desc3 = Table.FirstChild.NextSibling.NextSibling.InnerText;
             }
             catch (Exception)
             {
-
-                throw;
+                User.Desc1 = "Private";
+                User.Desc2 = "Private";
+                User.Desc3 = "Private";
             }
         }
     }
