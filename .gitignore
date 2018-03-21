@@ -8,7 +8,7 @@
 *.o
 *.so
 *.sln
-Resources.Designer.cs
+*.Designer.cs
 *.csproj
 *.resx
 *.pubxml
@@ -35,3 +35,8 @@ Resources.Designer.cs
 *.ide
 *.ide-shm
 *.ide-wal
+*.sou
+*.sqlite
+*.AssemblyInfo.cs
+obj
+bin
