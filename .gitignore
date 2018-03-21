@@ -35,7 +35,7 @@
 *.ide
 *.ide-shm
 *.ide-wal
-*.sou
+*.suo
 *.sqlite
 *.AssemblyInfo.cs
 obj
