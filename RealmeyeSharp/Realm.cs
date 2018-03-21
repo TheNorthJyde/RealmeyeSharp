@@ -60,7 +60,7 @@ namespace RealmeyeSharp
             }
             catch (Exception)
             {
-                User.Name = "Private or non-existent";
+                User.Name = "Private";
                 User.Chars = "Private";
                 User.Skins = "Private";
                 User.Fame = "Private";
