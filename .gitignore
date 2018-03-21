@@ -41,3 +41,4 @@
 *.AssemblyInfo.cs
 obj
 bin
+packages
