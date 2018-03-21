@@ -31,3 +31,7 @@ Resources.Designer.cs
 *.nuspec
 *.txt
 *.resources
+*.lock
+*.ide
+*.ide-shm
+*.ide-wal
