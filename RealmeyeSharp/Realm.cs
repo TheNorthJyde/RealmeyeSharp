@@ -35,23 +35,23 @@ namespace RealmeyeSharp
                     {
                         if (cell.InnerText == "Characters")
                         {
-                            user.Chars = cell.NextSibling.InnerText;
+                            user.Chars =  Convert.ToInt32(cell.NextSibling.InnerText);
                         }
                         else if (cell.InnerText == "Skins")
                         {
-                            user.Skins = cell.NextSibling.InnerText;
+                            user.Skins = Convert.ToInt32(cell.NextSibling.InnerText);
                         }
                         else if (cell.InnerText == "Fame")
                         {
-                            user.Fame = cell.NextSibling.InnerText;
+                            user.Fame = Convert.ToInt32(cell.NextSibling.InnerText);
                         }
                         else if (cell.InnerText == "Rank")
                         {
-                            user.Rank = cell.NextSibling.InnerText;
+                            user.Rank = Convert.ToInt32(cell.NextSibling.InnerText);
                         }
                         else if (cell.InnerText == "Account fame")
                         {
-                            user.AccFame = cell.NextSibling.InnerText;
+                            user.AccFame = Convert.ToInt32(cell.NextSibling.InnerText);
                         }
                         else if (cell.InnerText == "Guild")
                         {
@@ -67,13 +67,7 @@ namespace RealmeyeSharp
             catch (Exception)
             {
                 user.Name = "Private";
-                user.Chars = "Private";
-                user.Skins = "Private";
-                user.Fame = "Private";
-                user.Rank = "Private";
-                user.AccFame = "Private";
-                user.Guild = "Private";
-                user.Created = "Private";
+                
             }
             return user;
         }
@@ -99,11 +93,11 @@ namespace RealmeyeSharp
                     {
                         user.PetName = row.SelectSingleNode("td[2]").InnerText;
                         user.Petstat1 = row.SelectSingleNode("td[6]").InnerText;
-                        user.Petlvl1 = row.SelectSingleNode("td[7]").InnerText;
+                        user.Petlvl1 = Convert.ToInt32(row.SelectSingleNode("td[7]").InnerText);
                         user.Petstat2 = row.SelectSingleNode("td[8]").InnerText;
-                        user.Petlvl2 = row.SelectSingleNode("td[9]").InnerText;
+                        user.Petlvl2 = Convert.ToInt32(row.SelectSingleNode("td[9]").InnerText);
                         user.Petstat3 = row.SelectSingleNode("td[10]").InnerText;
-                        user.Petlvl3 = row.SelectSingleNode("td[11]").InnerText;
+                        user.Petlvl3 = Convert.ToInt32(row.SelectSingleNode("td[11]").InnerText);
                         break;
                     }
                 }
@@ -113,9 +107,9 @@ namespace RealmeyeSharp
                     user.Petstat1 = "Private";
                     user.Petstat2 = "Private";
                     user.Petstat3 = "Private";
-                    user.Petlvl1 = "Private";
-                    user.Petlvl2 = "Private";
-                    user.Petlvl3 = "Private";
+                    user.Petlvl1 = 0;
+                    user.Petlvl2 = 0;
+                    user.Petlvl3 = 0;
                 }
             }
             else
