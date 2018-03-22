@@ -15,7 +15,7 @@ use user.Name to retrive data and etc.</Description>
     <PackageTags>ROTMG RealmeyeAPI Realmeye Realm</PackageTags>
     <Version>2.0.0</Version>
     <PackageProjectUrl>https://github.com/TheNorthJyde/RealmeyeSharp</PackageProjectUrl>
-    <PackageReleaseNotes>Changed User class alot and changed some string variables into int</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

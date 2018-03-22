@@ -8,20 +8,20 @@ namespace RealmeyeSharp
     public class User
     {
         public string Name { get; set; }
-        public int Chars { get; set; }
-        public int Skins { get; set; }
-        public int Fame { get; set; }
-        public int Rank { get; set; }
-        public int AccFame { get; set; }
+        public string Chars { get; set; }
+        public string Skins { get; set; }
+        public string Fame { get; set; }
+        public string Rank { get; set; }
+        public string AccFame { get; set; }
         public string Guild { get; set; }
         public string Created { get; set; }
         public string PetName { get; set; }
         public string Petstat1 { get; set; }
         public string Petstat2 { get; set; }
         public string Petstat3 { get; set; }
-        public int Petlvl1 { get; set; }
-        public int Petlvl2 { get; set; }
-        public int Petlvl3 { get; set; }
+        public string Petlvl1 { get; set; }
+        public string Petlvl2 { get; set; }
+        public string Petlvl3 { get; set; }
         public string Desc1 { get; set; }
         public string Desc2 { get; set; }
         public string Desc3 { get; set; }
