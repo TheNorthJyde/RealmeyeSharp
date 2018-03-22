@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using HtmlAgilityPack;
 using ScrapySharp.Extensions;
@@ -127,6 +128,82 @@ namespace RealmeyeSharp
                 User.Desc2 = "Private";
                 User.Desc3 = "Private";
             }
+        }
+
+        public static ObservableCollection<Class> GetUserClasses(string IGN)
+        {
+            ScrapingBrowser browser = new ScrapingBrowser();
+            browser.AllowAutoRedirect = true;
+            browser.AllowMetaRedirect = true;
+
+            ObservableCollection<Class> classes = new ObservableCollection<Class>();
+
+            try
+            {
+                WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/player/" + IGN));
+                var Table = Main.Html.CssSelect(".table-responsive").First().LastChild;
+
+                foreach (var row in Table.SelectNodes("tbody/tr"))
+                {
+                    bool t = false;
+                    string eq1;
+                    string eq2;
+                    string eq3;
+                    string eq4;
+
+                    if (row.SelectSingleNode("td[9]").ChildNodes.Count == 5)
+                    {
+                        t = true;
+                    }
+                    //eq1
+                    if (row.SelectSingleNode("td[9]").FirstChild.FirstChild.ChildNodes.Count == 1)
+                    {
+                        eq1 = row.SelectSingleNode("td[9]").FirstChild.FirstChild.FirstChild.Attributes[1].Value;
+                    }
+                    else
+                    {
+                        eq1 = row.SelectSingleNode("td[9]").FirstChild.FirstChild.FirstChild.Attributes[1].Value;
+                    }
+                    //eq2
+                    if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.ChildNodes.Count == 1)
+                    {
+                        eq2 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
+                    }
+                    else
+                    {
+                        eq2 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.Attributes[1].Value;
+                    }
+                    //eq3
+                    if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.ChildNodes.Count == 1)
+                    {
+                        eq3 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
+                    }
+                    else
+                    {
+                        eq3 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.Attributes[1].Value;
+                    }
+                    //eq4
+                    if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.ChildNodes.Count == 1)
+                    {
+                        eq4 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
+                    }
+                    else
+                    {
+                        eq4 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.Attributes[1].Value;
+                    }
+
+                    classes.Add(new Class(row.SelectSingleNode("td[3]").InnerText, Convert.ToInt32(row.SelectSingleNode("td[4]").InnerText),
+                        row.SelectSingleNode("td[5]").InnerText, Convert.ToInt32(row.SelectSingleNode("td[6]").InnerText), eq1, eq2, eq3, eq4, t,
+                        row.SelectSingleNode("td[10]").InnerText));
+                }
+            }
+            catch (Exception)
+            {
+
+                classes.Add(new Class("Private", 0, "0/5", 0, "Empty slot", "Empty slot", "Empty slot", "Empty slot", false, "0/8"));
+            }
+            
+            return classes;
         }
     }
 }
