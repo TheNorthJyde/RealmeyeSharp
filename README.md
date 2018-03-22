@@ -3,22 +3,26 @@
 
 I have made it using web scraping.
 # Example
-Go to tester and look at the Program.cs 
+Go to tester and look at the Program.cs for more help.
 
 How to use:
-Realm.GetUserSummary(string IGN)
 
-Realm.GetUserPetStats(String IGN)
+you need to use Summary before you can use anything else.
 
-Realm.GetUserDescription(string IGN)
+user = Realm.GetUserSummary(string IGN)
 
-ObservableCollection<Class> classes = Realm.GetUserClasses(IGN).
+Realm.GetUserPetStats(User user)
+
+Realm.GetUserDescription(User user)
+
+Realm.GetUserClasses(User user).
 
 and to use the data use
-User.Name and etc
+User user = new User();
+user.Name and etc
 
 # MyNuget
-Install-Package RealmeyeSharp -Version 1.3.0
+Install-Package RealmeyeSharp -Version 2.0.0
 
 Or use My NuGet Package manager and search after: RealmeyeSharp
 
