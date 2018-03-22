@@ -18,7 +18,7 @@ and to use the data use
 User.Name and etc
 
 # MyNuget
-Install-Package RealmeyeSharp -Version 1.1.0
+Install-Package RealmeyeSharp -Version 1.3.0
 
 Or use My NuGet Package manager and search after: RealmeyeSharp
 
