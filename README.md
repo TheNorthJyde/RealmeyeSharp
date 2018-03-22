@@ -7,8 +7,11 @@ Go to tester and look at the Program.cs
 
 How to use:
 Realm.GetUserSummary(string IGN)
+
 Realm.GetUserPetStats(String IGN)
+
 Realm.GetUserDescription(string IGN)
+
 ObservableCollection<Class> classes = Realm.GetUserClasses(IGN).
 
 and to use the data use
