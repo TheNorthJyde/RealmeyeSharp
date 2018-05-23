@@ -1,5 +1,5 @@
 # RealmeyeSharp
-[Realmeye API](https://www.realmeye.com/) that gets information on realmeye to string variable in c#
+[Realmeye API](https://www.realmeye.com/) that gets information on realmeye to mostly string variable in c#
 
 I have made it using web scraping.
 # Example
