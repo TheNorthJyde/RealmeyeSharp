@@ -17,6 +17,19 @@ namespace RealmeyeSharp
         public bool Backpack { get; set; }
         public string Stats { get; set; }
 
+        /// <summary>
+        /// creates a class
+        /// </summary>
+        /// <param name="classname"></param>
+        /// <param name="lvl"></param>
+        /// <param name="cqc"></param>
+        /// <param name="fame"></param>
+        /// <param name="eq1"></param>
+        /// <param name="eq2"></param>
+        /// <param name="eq3"></param>
+        /// <param name="eq4"></param>
+        /// <param name="backpack"></param>
+        /// <param name="stats"></param>
         public Class(string classname, int lvl, string cqc, int fame, string eq1, string eq2, string eq3, string eq4, bool backpack, string stats)
         {
             ClassName = classname;

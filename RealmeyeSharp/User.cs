@@ -27,7 +27,9 @@ namespace RealmeyeSharp
         public string Desc3 { get; set; }
         public ObservableCollection<Class> Classes { get; set; } = new ObservableCollection<Class>();
 
-
+        /// <summary>
+        /// creates a user
+        /// </summary>
         public User() { }
 
         
