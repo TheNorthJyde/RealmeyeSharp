@@ -23,7 +23,7 @@ and to use the data use
 User user = new User();
 user.Name and etc
 
-or you can look at my [Test / example](Tester/Program.cs)
+or you can look at my [Test / Example](Tester/Program.cs)
 
 # MyNuget
 Install-Package RealmeyeSharp -Version 2.2.0
