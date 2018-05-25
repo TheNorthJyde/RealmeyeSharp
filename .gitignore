@@ -9,7 +9,6 @@
 *.so
 *.sln
 *.Designer.cs
-*.csproj
 *.resx
 *.pubxml
 *.config
@@ -42,3 +41,4 @@
 obj
 bin
 packages
+.vs
