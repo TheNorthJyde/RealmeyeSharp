@@ -16,7 +16,7 @@ use user.Name to retrive data and etc.</Description>
     <Version>2.0.2</Version>
     <PackageProjectUrl>https://github.com/TheNorthJyde/RealmeyeSharp</PackageProjectUrl>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <PackageIconUrl>https://imgur.com/a/7gtnTaO</PackageIconUrl>
+    <PackageIconUrl>https://www.realmeye.com/s/aw/img/eye-big.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
