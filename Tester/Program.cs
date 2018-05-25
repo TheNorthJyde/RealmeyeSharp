@@ -36,15 +36,10 @@ namespace Tester
             foreach (var c in user.Classes)
             {
                 Console.WriteLine("Class: " + i + "\nName: " + c.ClassName + " Lvl: " + c.Lvl + "\nClass Quest Completed: " + c.CQC + " Fame: " + c.Fame +
-                    "\nEquipment 1: " + c.Eq1 + " 2: " + c.Eq2 + " 3: " + c.Eq3 + " 4: " + c.Eq4 + "\nBackpack: " + c.Backpack + " Stats: " + c.Stats);
+                    "\nEquipments Weapon: " + c.Eq1 + "\nAbility: " + c.Eq2 + "\nArmour: " + c.Eq3 + "\nRing: " + c.Eq4 + "\nBackpack: " + c.Backpack + "\nStats: " + c.Stats);
                 i++;
             }
-            
-
             Console.ReadKey();
-
-            
-            
         }
         
     }

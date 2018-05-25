@@ -190,7 +190,7 @@ namespace RealmeyeSharp
                         }
                         else
                         {
-                            eq1 = row.SelectSingleNode("td[9]").FirstChild.FirstChild.FirstChild.Attributes[1].Value;
+                            eq1 = row.SelectSingleNode("td[9]").FirstChild.FirstChild.Attributes[1].Value;
                         }
                         //eq2
                         if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.ChildNodes.Count == 1)

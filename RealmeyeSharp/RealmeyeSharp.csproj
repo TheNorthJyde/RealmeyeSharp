@@ -13,9 +13,9 @@ use user.Name to retrive data and etc.</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/TheNorthJyde/RealmeyeSharp/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageTags>ROTMG RealmeyeAPI Realmeye Realm</PackageTags>
-    <Version>2.0.2</Version>
+    <Version>2.1.0</Version>
     <PackageProjectUrl>https://github.com/TheNorthJyde/RealmeyeSharp</PackageProjectUrl>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>Fixed classes crashing if class dont have a weapon</PackageReleaseNotes>
     <PackageIconUrl>https://www.realmeye.com/s/aw/img/eye-big.png</PackageIconUrl>
   </PropertyGroup>
 
