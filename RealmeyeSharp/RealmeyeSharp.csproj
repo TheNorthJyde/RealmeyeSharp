@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Lasse Holt</Authors>
+    <Authors>Celestial</Authors>
     <Company>TheNorthJyde</Company>
     <Description>Gets user infomation on realmeye.
 * Fame * Chars * Skins * Rank * Account fame * Guild * Created * Pets Stats
