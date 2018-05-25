@@ -7,15 +7,15 @@
     <Company>TheNorthJyde</Company>
     <Description>Gets user infomation on realmeye.
 * Fame * Chars * Skins * Rank * Account fame * Guild * Created * Pets Stats
-Realm.GetUserSummary(String IGN), Realm.GetUserPetStats(User user), Realm.GetUserDescription(User user), Realm.GetUserClasses(User user).
+User user = Realm.GetUserSummary(String IGN), Realm.GetUserPetStats(User user), Realm.GetUserDescription(User user), Realm.GetUserClasses(User user), User user = Realm.GetAllUserInfo(String IGN).
 use user.Name to retrive data and etc.</Description>
     <Copyright>Tuesday, March 20, 2018 (3/20/2018)</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/TheNorthJyde/RealmeyeSharp/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageTags>ROTMG RealmeyeAPI Realmeye Realm</PackageTags>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <PackageProjectUrl>https://github.com/TheNorthJyde/RealmeyeSharp</PackageProjectUrl>
-    <PackageReleaseNotes>Fixed classes crashing if class dont have a weapon</PackageReleaseNotes>
+    <PackageReleaseNotes>add get all user info</PackageReleaseNotes>
     <PackageIconUrl>https://www.realmeye.com/s/aw/img/eye-big.png</PackageIconUrl>
   </PropertyGroup>
 
