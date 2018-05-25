@@ -9,7 +9,6 @@
 *.so
 *.sln
 *.Designer.cs
-*.csproj
 *.resx
 *.pubxml
 *.config
