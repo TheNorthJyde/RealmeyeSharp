@@ -10,6 +10,7 @@ namespace RealmeyeSharp
 {
     public class Realm
     {
+        public static bool result = false;
         /// <summary>
         /// Will get you User: name, char amount, skin count, rank, fame, accdame, guild, created
         /// </summary>
@@ -76,8 +77,9 @@ namespace RealmeyeSharp
         /// will get you User: petname, pet stats, pet lvls
         /// </summary>
         /// <param name="user"></param>
-        public static void GetUserPetStats(User user)
+        public static bool GetUserPetStats(User user)
         {
+            result = false;
             ScrapingBrowser browser = new ScrapingBrowser();
             browser.AllowAutoRedirect = true;
             browser.AllowMetaRedirect = true;
@@ -100,6 +102,7 @@ namespace RealmeyeSharp
                         user.Petlvl3 = row.SelectSingleNode("td[11]").InnerText;
                         break;
                     }
+                    result = true;
                 }
                 catch (Exception)
                 {
@@ -116,15 +119,16 @@ namespace RealmeyeSharp
             {
                 Console.WriteLine("you either havent gotten summary or your user is private");
             }
-
+            return result;
         }
 
         /// <summary>
         /// will get you User: description
         /// </summary>
         /// <param name="user"></param>
-        public static void GetUserDescription(User user)
+        public static bool GetUserDescription(User user)
         {
+            result = false;
             ScrapingBrowser browser = new ScrapingBrowser();
             browser.AllowAutoRedirect = true;
             browser.AllowMetaRedirect = true;
@@ -138,6 +142,7 @@ namespace RealmeyeSharp
                     user.Desc1 = Table.FirstChild.InnerText;
                     user.Desc2 = Table.FirstChild.NextSibling.InnerText;
                     user.Desc3 = Table.FirstChild.NextSibling.NextSibling.InnerText;
+                    result = true;
                 }
                 catch (Exception)
                 {
@@ -151,14 +156,16 @@ namespace RealmeyeSharp
                 Console.WriteLine("you either havent gotten summary or your user is private");
             }
 
+            return result;
         }
 
         /// <summary>
         /// will get you all User classes
         /// </summary>
         /// <param name="user"></param>
-        public static void GetUserClasses(User user)
+        public static bool GetUserClasses(User user)
         {
+            result = false;
             ScrapingBrowser browser = new ScrapingBrowser();
             browser.AllowAutoRedirect = true;
             browser.AllowMetaRedirect = true;
@@ -224,6 +231,7 @@ namespace RealmeyeSharp
                             row.SelectSingleNode("td[5]").InnerText, Convert.ToInt32(row.SelectSingleNode("td[6]").InnerText), eq1, eq2, eq3, eq4, t,
                             row.SelectSingleNode("td[10]").InnerText));
                     }
+                    result = true;
                 }
                 catch (Exception)
                 {
@@ -236,6 +244,7 @@ namespace RealmeyeSharp
             {
                 Console.WriteLine("you either havent gotten summary or your user is private");
             }
+            return result;
         }
 
         /// <summary>
