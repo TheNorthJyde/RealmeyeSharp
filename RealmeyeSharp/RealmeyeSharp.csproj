@@ -6,16 +6,14 @@
     <Authors>Celestial</Authors>
     <Company>TheNorthJyde</Company>
     <Description>Gets user infomation on realmeye.
-* Fame * Chars * Skins * Rank * Account fame * Guild * Created * Pets Stats
-User user = Realm.GetUserSummary(String IGN), Realm.GetUserPetStats(User user), Realm.GetUserDescription(User user), Realm.GetUserClasses(User user), User user = Realm.GetAllUserInfo(String IGN).
-use user.Name to retrive data and etc.</Description>
+how to use got to project url and look at example</Description>
     <Copyright>Tuesday, March 20, 2018 (3/20/2018)</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/TheNorthJyde/RealmeyeSharp/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageTags>ROTMG RealmeyeAPI Realmeye Realm</PackageTags>
-    <Version>2.2.1</Version>
+    <Version>2.2.3</Version>
     <PackageProjectUrl>https://github.com/TheNorthJyde/RealmeyeSharp</PackageProjectUrl>
-    <PackageReleaseNotes>made all voids bool</PackageReleaseNotes>
+    <PackageReleaseNotes>found out acc summary can have first seen</PackageReleaseNotes>
     <PackageIconUrl>https://www.realmeye.com/s/aw/img/eye-big.png</PackageIconUrl>
   </PropertyGroup>
 

@@ -17,8 +17,8 @@ namespace Tester
             User user = new User();
             Console.Write("In Game Name: ");
             var IGN = Console.ReadLine();
-            user = Realm.GetUserSummary(IGN);
-            Realm.GetUserPetStats(user);
+            Realm.GetUserSummary(IGN, user);
+            GetUserPetStats(user);
             Realm.GetUserDescription(user);
             Realm.GetUserClasses(user);
 
@@ -43,7 +43,7 @@ namespace Tester
 
             //Example GetAllUserInfo(IGN)
             Console.Write("\nWrite ur ign again to test this function \nIGN: ");
-            user = Realm.GetAllUserInfo(Console.ReadLine());
+            Realm.GetAllUserInfo(Console.ReadLine(), user);
 
             Console.WriteLine("Name: " + user.Name +
                 "\nCharacters: " + user.Chars +
@@ -73,6 +73,52 @@ namespace Tester
             // Closes the current process
             Environment.Exit(0);
         }
-        
+        public static bool GetUserPetStats(User user)
+        {
+            bool result = false;
+            ScrapingBrowser browser = new ScrapingBrowser();
+            browser.AllowAutoRedirect = true;
+            browser.AllowMetaRedirect = true;
+            if (user.Name != null && user.Name != "Private")
+            {
+                try
+                {
+                    WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/pets-of/" + user.Name));
+                    var Table = Main.Html.CssSelect(".table-responsive").First();
+                    var PetTable = Table.LastChild;
+
+                    foreach (var row in PetTable.SelectNodes("tbody/tr"))
+                    {
+                        var node = row.SelectSingleNode("td[1]").FirstChild.Attributes["class"].Value;
+                        
+                        
+                        user.PetName = row.SelectSingleNode("td[2]").InnerText;
+                        user.Petstat1 = row.SelectSingleNode("td[6]").InnerText;
+                        user.Petlvl1 = row.SelectSingleNode("td[7]").InnerText;
+                        user.Petstat2 = row.SelectSingleNode("td[8]").InnerText;
+                        user.Petlvl2 = row.SelectSingleNode("td[9]").InnerText;
+                        user.Petstat3 = row.SelectSingleNode("td[10]").InnerText;
+                        user.Petlvl3 = row.SelectSingleNode("td[11]").InnerText;
+                        break;
+                    }
+                    result = true;
+                }
+                catch (Exception)
+                {
+                    user.PetName = "Private";
+                    user.Petstat1 = "Private";
+                    user.Petstat2 = "Private";
+                    user.Petstat3 = "Private";
+                    user.Petlvl1 = "0";
+                    user.Petlvl2 = "0";
+                    user.Petlvl3 = "0";
+                }
+            }
+            else
+            {
+                Console.WriteLine("you either havent gotten summary or your user is private");
+            }
+            return result;
+        }
     }
 }

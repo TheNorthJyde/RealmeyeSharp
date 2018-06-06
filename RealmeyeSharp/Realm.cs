@@ -16,12 +16,12 @@ namespace RealmeyeSharp
         /// </summary>
         /// <param name="IGN"></param>
         /// <returns></returns>
-        public static User GetUserSummary(string IGN)
+        public static bool GetUserSummary(string IGN, User user)
         {
+            result = false;
             ScrapingBrowser browser = new ScrapingBrowser();
             browser.AllowAutoRedirect = true;
             browser.AllowMetaRedirect = true;
-            User user = new User();
             try
             {
                 WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/player/" + IGN));
@@ -62,15 +62,20 @@ namespace RealmeyeSharp
                         {
                             user.Created = cell.NextSibling.InnerText;
                         }
+                        else if (cell.InnerText == "First seen")
+                        {
+                            user.Created = cell.NextSibling.InnerText;
+                        }
                     }
                 }
+                result = true;
             }
             catch (Exception)
             {
                 user.Name = "Private";
                 
             }
-            return user;
+            return result;
         }
 
         /// <summary>
@@ -90,9 +95,10 @@ namespace RealmeyeSharp
                     WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/pets-of/" + user.Name));
                     var Table = Main.Html.CssSelect(".table-responsive").First();
                     var PetTable = Table.LastChild;
-
+                    
                     foreach (var row in PetTable.SelectNodes("tbody/tr"))
                     {
+
                         user.PetName = row.SelectSingleNode("td[2]").InnerText;
                         user.Petstat1 = row.SelectSingleNode("td[6]").InnerText;
                         user.Petlvl1 = row.SelectSingleNode("td[7]").InnerText;
@@ -252,12 +258,12 @@ namespace RealmeyeSharp
         /// </summary>
         /// <param name="IGN"></param>
         /// <returns></returns>
-        public static User GetAllUserInfo(String IGN)
+        public static bool GetAllUserInfo(string IGN, User user)
         {
+            result = false;
             ScrapingBrowser browser = new ScrapingBrowser();
             browser.AllowAutoRedirect = true;
             browser.AllowMetaRedirect = true;
-            User user = new User();
             //main link
             try
             {
@@ -363,6 +369,7 @@ namespace RealmeyeSharp
                         row.SelectSingleNode("td[5]").InnerText, Convert.ToInt32(row.SelectSingleNode("td[6]").InnerText), eq1, eq2, eq3, eq4, t,
                         row.SelectSingleNode("td[10]").InnerText));
                 }
+                result = true;
             }
             catch (Exception)
             {
@@ -390,9 +397,11 @@ namespace RealmeyeSharp
                     user.Petlvl3 = row.SelectSingleNode("td[11]").InnerText;
                     break;
                 }
+                result = true;
             }
             catch (Exception)
             {
+                result = false;
                 user.PetName = "Private";
                 user.Petstat1 = "Private";
                 user.Petstat2 = "Private";
@@ -402,7 +411,7 @@ namespace RealmeyeSharp
                 user.Petlvl3 = "0";
             }
 
-            return user;
+            return result;
         }
     }
 }
