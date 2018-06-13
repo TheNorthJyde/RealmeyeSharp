@@ -1,19 +1,18 @@
-﻿using RealmeyeSharp;
-using ScrapySharp.Extensions;
+﻿using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using static System.Net.Mime.MediaTypeNames;
+using RealmeyeSharp;
 
 namespace Tester
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
-            
+            #region realm
+            /*
             User user = new User();
             Console.Write("In Game Name: ");
             var IGN = Console.ReadLine();
@@ -21,7 +20,7 @@ namespace Tester
             GetUserPetStats(user);
             Realm.GetUserDescription(user);
             Realm.GetUserClasses(user);
-
+            int fame = Convert.ToInt32(user.Fame.Substring(0, user.Fame.IndexOf(" ")));
             Console.WriteLine("Name: " + user.Name + 
                 "\nCharacters: " + user.Chars + 
                 "\nSkins: " + user.Skins + 
@@ -72,53 +71,20 @@ namespace Tester
 
             // Closes the current process
             Environment.Exit(0);
-        }
-        public static bool GetUserPetStats(User user)
-        {
-            bool result = false;
-            ScrapingBrowser browser = new ScrapingBrowser();
-            browser.AllowAutoRedirect = true;
-            browser.AllowMetaRedirect = true;
-            if (user.Name != null && user.Name != "Private")
-            {
-                try
-                {
-                    WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/pets-of/" + user.Name));
-                    var Table = Main.Html.CssSelect(".table-responsive").First();
-                    var PetTable = Table.LastChild;
+            
+        */
+            #endregion
+            
 
-                    foreach (var row in PetTable.SelectNodes("tbody/tr"))
-                    {
-                        var node = row.SelectSingleNode("td[1]").FirstChild.Attributes["class"].Value;
-                        
-                        
-                        user.PetName = row.SelectSingleNode("td[2]").InnerText;
-                        user.Petstat1 = row.SelectSingleNode("td[6]").InnerText;
-                        user.Petlvl1 = row.SelectSingleNode("td[7]").InnerText;
-                        user.Petstat2 = row.SelectSingleNode("td[8]").InnerText;
-                        user.Petlvl2 = row.SelectSingleNode("td[9]").InnerText;
-                        user.Petstat3 = row.SelectSingleNode("td[10]").InnerText;
-                        user.Petlvl3 = row.SelectSingleNode("td[11]").InnerText;
-                        break;
-                    }
-                    result = true;
-                }
-                catch (Exception)
-                {
-                    user.PetName = "Private";
-                    user.Petstat1 = "Private";
-                    user.Petstat2 = "Private";
-                    user.Petstat3 = "Private";
-                    user.Petlvl1 = "0";
-                    user.Petlvl2 = "0";
-                    user.Petlvl3 = "0";
-                }
-            }
-            else
-            {
-                Console.WriteLine("you either havent gotten summary or your user is private");
-            }
-            return result;
+            string server = FindKey("lh");
+
+            int price = Convert.ToInt32(server.Split(' ').Last());
+            server = server.Substring(0, server.IndexOf(" "));
+            Console.WriteLine("server: " + server + " Price: " + price);
+            
+            
+            Console.ReadKey();
         }
+        
     }
 }
