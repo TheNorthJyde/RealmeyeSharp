@@ -58,6 +58,10 @@ namespace RealmeyeSharp
                         {
                             user.Guild = cell.NextSibling.InnerText;
                         }
+                        else if (cell.InnerText == "Guild Rank")
+                        {
+                            user.GuildRank = cell.NextSibling.InnerText;
+                        }
                         else if (cell.InnerText == "Created")
                         {
                             user.Created = cell.NextSibling.InnerText;
