@@ -14,6 +14,7 @@ namespace RealmeyeSharp
         public string Rank { get; set; }
         public string AccFame { get; set; }
         public string Guild { get; set; }
+        public string GuildRank { get; set; }
         public string Created { get; set; }
         public string PetName { get; set; }
         public string Petstat1 { get; set; }
