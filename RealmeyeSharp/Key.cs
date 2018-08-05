@@ -51,7 +51,7 @@ namespace RealmeyeSharp
             keyList.Add("davy jones’ locker", 15);
             keyList.Add("davys", 15);
             keyList.Add("davy", 15);
-            keyList.Add(“manor of the immortals", 16);
+            keyList.Add("manor of the immortals", 16);
             keyList.Add("manor", 16);
             keyList.Add("totem", 17);
             keyList.Add("forbidden jungle", 17);
