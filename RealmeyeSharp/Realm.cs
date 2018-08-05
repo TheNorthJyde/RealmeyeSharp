@@ -305,6 +305,10 @@ namespace RealmeyeSharp
                         {
                             user.Guild = cell.NextSibling.InnerText;
                         }
+                        else if (cell.InnerText == "Guild Rank")
+                        {
+                            user.GuildRank = cell.NextSibling.InnerText;
+                        }
                         else if (cell.InnerText == "Created")
                         {
                             user.Created = cell.NextSibling.InnerText;
@@ -417,5 +421,112 @@ namespace RealmeyeSharp
 
             return result;
         }
+        
+        /// <summary>
+        /// Will get you Guild: name, char amount, fame, most active on and description.
+        /// </summary>
+        /// <param name="guildName"></param>
+        /// <param name="guild"></param>
+        /// <returns></returns>
+        public static bool GetGuildSummary(string guildName, Guild guild)
+        {
+            guildName = guildName.Replace(" ", "%20");
+            result = false;
+            ScrapingBrowser browser = new ScrapingBrowser();
+            browser.AllowAutoRedirect = true;
+            browser.AllowMetaRedirect = true;
+            try
+            {
+                WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/guild/" + guildName));
+                HtmlNode Username = Main.Html.CssSelect(".entity-name").First();
+                guild.Name = Username.InnerText;
+
+                var Table = Main.Html.CssSelect("#d").First();
+                guild.Desc1 = Table.FirstChild.InnerText;
+                guild.Desc2 = Table.FirstChild.NextSibling.InnerText;
+                guild.Desc3 = Table.FirstChild.NextSibling.NextSibling.InnerText;
+
+                Table = Main.Html.CssSelect(".summary").First();
+
+                foreach (var row in Table.SelectNodes("tr"))
+                {
+                    foreach (var cell in row.SelectNodes("td[1]"))
+                    {
+                        if (cell.InnerText == "Members")
+                        {
+                            guild.MemberCount = cell.NextSibling.InnerText;
+                        }
+                        else if (cell.InnerText == "Characters")
+                        {
+                            guild.Chars = cell.NextSibling.InnerText;
+                        }
+                        else if (cell.InnerText == "Fame")
+                        {
+                            guild.Fame = cell.NextSibling.InnerText;
+                        }
+                        else if (cell.InnerText == "Most active on")
+                        {
+                            guild.MostActiveOn = cell.NextSibling.InnerText;
+                        }
+                    }
+                }
+                result = true;
+            }
+            catch (Exception)
+            {
+                guild.Name = "Private";
+                guild.Desc1 = "Private";
+                guild.Desc2 = "Private";
+                guild.Desc3 = "Private";
+
+            }
+            return result;
+        }
+        
+        /// <summary>
+        /// will get you all Guild members
+        /// </summary>
+        /// <param name="guild"></param>
+        /// <returns></returns>
+        public static bool GetGuildMembers(Guild guild)
+        {
+            string guildName = guild.Name;
+            int offset = 0;
+            if (guildName.Contains(' '))
+            {
+                guildName = guildName.Replace(" ", "%20");
+                offset = 1;
+            }
+            result = false;
+            ScrapingBrowser browser = new ScrapingBrowser();
+            browser.AllowAutoRedirect = true;
+            browser.AllowMetaRedirect = true;
+
+            ObservableCollection<Member> member = new ObservableCollection<Member>();
+            try
+            {
+                WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/guild/" + guildName));
+                Console.WriteLine("https://www.realmeye.com/guild/" + guildName);
+                var Table = Main.Html.CssSelect(".table-responsive").First().LastChild;
+
+                foreach (var row in Table.SelectNodes("tbody/tr"))
+                {
+                    guild.Members.Add(new Member(
+                        row.SelectSingleNode($"td[{1 + offset}]").InnerText,
+                        row.SelectSingleNode($"td[{2 + offset}]").InnerText,
+                        int.Parse(row.SelectSingleNode($"td[{3 + offset}]").InnerText),
+                        int.Parse(row.SelectSingleNode($"td[{5 + offset}]").InnerText),
+                        int.Parse(row.SelectSingleNode($"td[{6 + offset}]").InnerText)
+                        ));
+                }
+                result = true;
+            }
+            catch (Exception)
+            {
+                guild.Name = "Private";
+            }
+            return result;
+        }
+        
     }
 }
