@@ -440,15 +440,23 @@ namespace RealmeyeSharp
                 WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/guild/" + guildName));
                 HtmlNode Username = Main.Html.CssSelect(".entity-name").First();
                 guild.Name = Username.InnerText;
+                try
+                {
+                    var Table1 = Main.Html.CssSelect("#d").First();
+                    guild.Desc1 = Table1.FirstChild.InnerText;
+                    guild.Desc2 = Table1.FirstChild.NextSibling.InnerText;
+                    guild.Desc3 = Table1.FirstChild.NextSibling.NextSibling.InnerText;
+                }
+                catch
+                {
+                    guild.Desc1 = "Private";
+                    guild.Desc2 = "Private";
+                    guild.Desc3 = "Private";
+                }
 
-                var Table = Main.Html.CssSelect("#d").First();
-                guild.Desc1 = Table.FirstChild.InnerText;
-                guild.Desc2 = Table.FirstChild.NextSibling.InnerText;
-                guild.Desc3 = Table.FirstChild.NextSibling.NextSibling.InnerText;
+                var Table2 = Main.Html.CssSelect(".summary").First();
 
-                Table = Main.Html.CssSelect(".summary").First();
-
-                foreach (var row in Table.SelectNodes("tr"))
+                foreach (var row in Table2.SelectNodes("tr"))
                 {
                     foreach (var cell in row.SelectNodes("td[1]"))
                     {
@@ -475,10 +483,6 @@ namespace RealmeyeSharp
             catch (Exception)
             {
                 guild.Name = "Private";
-                guild.Desc1 = "Private";
-                guild.Desc2 = "Private";
-                guild.Desc3 = "Private";
-
             }
             return result;
         }
