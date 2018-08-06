@@ -27,7 +27,7 @@ namespace RealmeyeSharp
                 WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/items/keys"));
 
                 var Table = Main.Html.CssSelect(".table-responsive").First().LastChild;
-                Table = Table.SelectSingleNode("tbody/tr[" + key.keyList[keyName] + "]");
+                Table = Table.SelectSingleNode("tbody/tr[" + key.keyList[keyName.ToLower()] + "]");
                 result = Table.SelectSingleNode("td[3]").InnerText;
                 result += " " + Table.SelectSingleNode("td[4]").InnerText;
             }
