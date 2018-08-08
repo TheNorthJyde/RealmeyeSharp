@@ -12,12 +12,12 @@ namespace Tester
         static void Main(string[] args)
         {
             #region realm
-            /*
+            
             User user = new User();
             Console.Write("In Game Name: ");
             var IGN = Console.ReadLine();
             Realm.GetUserSummary(IGN, user);
-            GetUserPetStats(user);
+            Realm.GetUserPetStats(user);
             Realm.GetUserDescription(user);
             Realm.GetUserClasses(user);
             int fame = Convert.ToInt32(user.Fame.Substring(0, user.Fame.IndexOf(" ")));
@@ -66,25 +66,46 @@ namespace Tester
             }
             Console.ReadKey();
 
-            // Starts a new instance of the program itself
+             //Starts a new instance of the program itself
             System.Diagnostics.Process.Start("Tester.exe");
 
-            // Closes the current process
+             //Closes the current process
             Environment.Exit(0);
             
-        */
+        
             #endregion
-            
 
-            string server = FindKey("lh");
 
-            int price = Convert.ToInt32(server.Split(' ').Last());
-            server = server.Substring(0, server.IndexOf(" "));
-            Console.WriteLine("server: " + server + " Price: " + price);
-            
-            
+
+
+
+
             Console.ReadKey();
         }
-        
+        //public static string FindMysterybox()
+        //{
+        //    string result = "";
+        //    ScrapingBrowser browser = new ScrapingBrowser();
+        //    browser.AllowAutoRedirect = true;
+        //    browser.AllowMetaRedirect = true;
+        //    try
+        //    {
+        //        Key key = new Key();
+        //        WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/items/mystery-boxes"));
+
+        //        var Table = Main.Html.CssSelect(".col-md-12").First().FirstChild.NextSibling.FirstChild;
+        //        var jackpot = Table.FirstChild;
+        //        Table = Table.SelectSingleNode(".row[2]");
+        //        result = Table.SelectSingleNode("td[3]").InnerText;
+        //        result += " " + Table.SelectSingleNode("td[4]").InnerText;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        result = "could not find backpack";
+
+        //    }
+        //    return result;
+        //}
+
     }
 }

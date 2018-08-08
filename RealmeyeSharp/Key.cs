@@ -39,26 +39,27 @@ namespace RealmeyeSharp
             keyList.Add("ot", 18);
             keyList.Add("lost halls", 19);
             keyList.Add("lh", 19);
-            keyList.Add("magic woods", 20);
-            keyList.Add("mwoods", 20);
-            keyList.Add("parasite chambers ", 21);
-            keyList.Add("chambers", 21);
-            keyList.Add("parasite", 21);
-            keyList.Add("sprite", 22);
-            keyList.Add("tomb of the ancients", 23);
-            keyList.Add("tomb", 23);
-            keyList.Add("snake pit", 24);
-            keyList.Add("abyss of demons", 25);
-            keyList.Add("abyss", 25);
-            keyList.Add("spider den", 26);
-            keyList.Add("pirate cave", 27);
-            keyList.Add("undead lair", 28);
-            keyList.Add("udl", 28);
-            keyList.Add("toxic sewers", 29);
-            keyList.Add("sew", 29);
-            keyList.Add("mountain temple", 30);
-            keyList.Add("mtemple", 30);
-            keyList.Add("the hive", 31);
+            keyList.Add("reef", 20);
+            keyList.Add("magic woods", 21);
+            keyList.Add("mwoods", 21);
+            keyList.Add("parasite chambers ", 22);
+            keyList.Add("chambers", 22);
+            keyList.Add("parasite", 22);
+            keyList.Add("sprite", 23);
+            keyList.Add("tomb of the ancients", 24);
+            keyList.Add("tomb", 24);
+            keyList.Add("snake pit", 25);
+            keyList.Add("abyss of demons", 26);
+            keyList.Add("abyss", 26);
+            keyList.Add("spider den", 27);
+            keyList.Add("pirate cave", 28);
+            keyList.Add("undead lair", 29);
+            keyList.Add("udl", 29);
+            keyList.Add("toxic sewers", 30);
+            keyList.Add("sew", 30);
+            keyList.Add("mountain temple", 31);
+            keyList.Add("mtemple", 31);
+            keyList.Add("the hive", 32);
         }
     }
 }
