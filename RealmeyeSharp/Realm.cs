@@ -274,110 +274,132 @@ namespace RealmeyeSharp
                 WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/player/" + IGN));
                 HtmlNode Username = Main.Html.CssSelect(".entity-name").First();
                 user.Name = Username.InnerText;
-
-                //gets user summary
                 var Table = Main.Html.CssSelect(".summary").First();
-                foreach (var row in Table.SelectNodes("tr"))
+                //gets user summary
+                try
                 {
-                    foreach (var cell in row.SelectNodes("td[1]"))
+                    foreach (var row in Table.SelectNodes("tr"))
                     {
-                        if (cell.InnerText == "Characters")
+                        foreach (var cell in row.SelectNodes("td[1]"))
                         {
-                            user.Chars = cell.NextSibling.InnerText;
+                            if (cell.InnerText == "Characters")
+                            {
+                                user.Chars = cell.NextSibling.InnerText;
+                            }
+                            else if (cell.InnerText == "Skins")
+                            {
+                                user.Skins = cell.NextSibling.InnerText;
+                            }
+                            else if (cell.InnerText == "Fame")
+                            {
+                                user.Fame = cell.NextSibling.InnerText;
+                            }
+                            else if (cell.InnerText == "Rank")
+                            {
+                                user.Rank = cell.NextSibling.InnerText;
+                            }
+                            else if (cell.InnerText == "Account fame")
+                            {
+                                user.AccFame = cell.NextSibling.InnerText;
+                            }
+                            else if (cell.InnerText == "Guild")
+                            {
+                                user.Guild = cell.NextSibling.InnerText;
+                            }
+                            else if (cell.InnerText == "Created")
+                            {
+                                user.Created = cell.NextSibling.InnerText;
+                            }
                         }
-                        else if (cell.InnerText == "Skins")
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+                result = true;
+                //gets user disc
+                try
+                {
+                    Table = Main.Html.CssSelect("#d").First();
+                    user.Desc1 = Table.FirstChild.InnerText;
+                    user.Desc2 = Table.FirstChild.NextSibling.InnerText;
+                    user.Desc3 = Table.FirstChild.NextSibling.NextSibling.InnerText;
+                }
+                catch (Exception)
+                {
+
+                }
+                //gets user classes
+                try
+                {
+                    
+                    Table = Main.Html.CssSelect(".table-responsive").First().LastChild;
+                    foreach (var row in Table.SelectNodes("tbody/tr"))
+                    {
+                        bool t = false;
+                        string eq1;
+                        string eq2;
+                        string eq3;
+                        string eq4;
+
+                        if (row.SelectSingleNode("td[9]").ChildNodes.Count == 5)
                         {
-                            user.Skins = cell.NextSibling.InnerText;
+                            t = true;
                         }
-                        else if (cell.InnerText == "Fame")
+                        //eq1
+                        if (row.SelectSingleNode("td[9]").FirstChild.FirstChild.ChildNodes.Count == 1)
                         {
-                            user.Fame = cell.NextSibling.InnerText;
+                            eq1 = row.SelectSingleNode("td[9]").FirstChild.FirstChild.FirstChild.Attributes[1].Value;
                         }
-                        else if (cell.InnerText == "Rank")
+                        else
                         {
-                            user.Rank = cell.NextSibling.InnerText;
+                            eq1 = row.SelectSingleNode("td[9]").FirstChild.FirstChild.Attributes[1].Value;
                         }
-                        else if (cell.InnerText == "Account fame")
+                        //eq2
+                        if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.ChildNodes.Count == 1)
                         {
-                            user.AccFame = cell.NextSibling.InnerText;
+                            eq2 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
                         }
-                        else if (cell.InnerText == "Guild")
+                        else
                         {
-                            user.Guild = cell.NextSibling.InnerText;
+                            eq2 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.Attributes[1].Value;
                         }
                         else if (cell.InnerText == "Guild Rank")
                         {
                             user.GuildRank = cell.NextSibling.InnerText;
                         }
                         else if (cell.InnerText == "Created")
+                        //eq3
+                        if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.ChildNodes.Count == 1)
                         {
-                            user.Created = cell.NextSibling.InnerText;
+                            eq3 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
                         }
+                        else
+                        {
+                            eq3 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.Attributes[1].Value;
+                        }
+                        //eq4
+                        if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.ChildNodes.Count == 1)
+                        {
+                            eq4 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
+                        }
+                        else
+                        {
+                            eq4 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.Attributes[1].Value;
+                        }
+
+                        user.Classes.Add(new Class(row.SelectSingleNode("td[3]").InnerText, Convert.ToInt32(row.SelectSingleNode("td[4]").InnerText),
+                            row.SelectSingleNode("td[5]").InnerText, Convert.ToInt32(row.SelectSingleNode("td[6]").InnerText), eq1, eq2, eq3, eq4, t,
+                            row.SelectSingleNode("td[10]").InnerText));
                     }
                 }
-
-                //gets user disc
-                Table = Main.Html.CssSelect("#d").First();
-                user.Desc1 = Table.FirstChild.InnerText;
-                user.Desc2 = Table.FirstChild.NextSibling.InnerText;
-                user.Desc3 = Table.FirstChild.NextSibling.NextSibling.InnerText;
-
-                //gets user classes
-                Table = Main.Html.CssSelect(".table-responsive").First().LastChild;
-                foreach (var row in Table.SelectNodes("tbody/tr"))
+                catch (Exception)
                 {
-                    bool t = false;
-                    string eq1;
-                    string eq2;
-                    string eq3;
-                    string eq4;
 
-                    if (row.SelectSingleNode("td[9]").ChildNodes.Count == 5)
-                    {
-                        t = true;
-                    }
-                    //eq1
-                    if (row.SelectSingleNode("td[9]").FirstChild.FirstChild.ChildNodes.Count == 1)
-                    {
-                        eq1 = row.SelectSingleNode("td[9]").FirstChild.FirstChild.FirstChild.Attributes[1].Value;
-                    }
-                    else
-                    {
-                        eq1 = row.SelectSingleNode("td[9]").FirstChild.FirstChild.Attributes[1].Value;
-                    }
-                    //eq2
-                    if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.ChildNodes.Count == 1)
-                    {
-                        eq2 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
-                    }
-                    else
-                    {
-                        eq2 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.Attributes[1].Value;
-                    }
-                    //eq3
-                    if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.ChildNodes.Count == 1)
-                    {
-                        eq3 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
-                    }
-                    else
-                    {
-                        eq3 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.Attributes[1].Value;
-                    }
-                    //eq4
-                    if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.ChildNodes.Count == 1)
-                    {
-                        eq4 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.FirstChild.Attributes[1].Value;
-                    }
-                    else
-                    {
-                        eq4 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild.Attributes[1].Value;
-                    }
-
-                    user.Classes.Add(new Class(row.SelectSingleNode("td[3]").InnerText, Convert.ToInt32(row.SelectSingleNode("td[4]").InnerText),
-                        row.SelectSingleNode("td[5]").InnerText, Convert.ToInt32(row.SelectSingleNode("td[6]").InnerText), eq1, eq2, eq3, eq4, t,
-                        row.SelectSingleNode("td[10]").InnerText));
                 }
-                result = true;
+                
+                
             }
             catch (Exception)
             {
@@ -409,7 +431,6 @@ namespace RealmeyeSharp
             }
             catch (Exception)
             {
-                result = false;
                 user.PetName = "Private";
                 user.Petstat1 = "Private";
                 user.Petstat2 = "Private";

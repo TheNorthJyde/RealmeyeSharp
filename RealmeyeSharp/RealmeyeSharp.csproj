@@ -11,9 +11,9 @@ how to use got to project url and look at example</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/TheNorthJyde/RealmeyeSharp/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageTags>ROTMG RealmeyeAPI Realmeye Realm</PackageTags>
-    <Version>2.3.0</Version>
+    <Version>2.3.2</Version>
     <PackageProjectUrl>https://github.com/TheNorthJyde/RealmeyeSharp</PackageProjectUrl>
-    <PackageReleaseNotes>added find key and find backpack</PackageReleaseNotes>
+    <PackageReleaseNotes>fixed a bug with GetAllUserInfo</PackageReleaseNotes>
     <PackageIconUrl>https://www.realmeye.com/s/aw/img/eye-big.png</PackageIconUrl>
   </PropertyGroup>
 
