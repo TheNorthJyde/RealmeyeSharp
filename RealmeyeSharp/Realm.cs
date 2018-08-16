@@ -553,5 +553,69 @@ namespace RealmeyeSharp
             return result;
         }
         
+        /// <summary>
+        /// will get you all mystery boxes
+        /// </summary>
+        /// <param name="mysteryBoxes"></param>
+        /// <returns></returns>
+        public static bool GetAllMysteryBoxes(List<MysteryBox> mysteryBoxes)
+        {
+            ScrapingBrowser browser = new ScrapingBrowser
+            {
+                AllowAutoRedirect = true,
+                AllowMetaRedirect = true
+            };
+            try
+            {
+                WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/items/mystery-boxes"));
+                var Boxes = Main.Html.CssSelect(".col-md-12").First();
+                foreach (var Box in Boxes.CssSelect(".well"))
+                {
+                    MysteryBox box = new MysteryBox
+                    {
+                        Name = Box.SelectSingleNode("h3").InnerHtml.Split('"')[0].Split('<')[0].Replace("&apos;", "'"),
+                        Price = Box.SelectSingleNode("h3/span").InnerText,
+                        EndsAt = Box.SelectSingleNode("small/span").InnerText
+                    };
+                    foreach (var Prize in Box.CssSelect(".prize"))
+                    {
+                        MPrize prize = new MPrize();
+                        if (Box.CssSelect(".prize.jackpot") != null)
+                        {
+                            prize.Jackpot = true;
+                        }
+                        else
+                        {
+                            prize.Jackpot = false;
+                        }
+                        foreach (var Item in Prize.CssSelect(".item"))
+                        {
+                            MItem item = new MItem
+                            {
+                                Name = Item.ParentNode.InnerHtml.Split('"')[3],
+                                Quantity = "1"
+                            };
+                            if (Prize.CssSelect(".item-quantity-static") != null)
+                            {
+                                foreach (var ItemQ in Prize.CssSelect(".item-quantity-static"))
+                                {
+                                    item.Quantity = ItemQ.InnerText;
+                                }
+                            }
+                            prize.Items.Add(item);
+                        }
+                        box.Prizes.Add(prize);
+                    }
+                    mysteryBoxes.Add(box);
+                }
+                result = true;
+            }
+            catch (Exception e)
+            {
+                
+            }
+            return result;
+        }
+        
     }
 }
