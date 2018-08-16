@@ -3,6 +3,7 @@ using ScrapySharp.Network;
 using System;
 using System.Linq;
 using RealmeyeSharp;
+using system.Collections.Generic;
 
 namespace Tester
 {
