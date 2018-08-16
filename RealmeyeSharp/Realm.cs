@@ -307,6 +307,10 @@ namespace RealmeyeSharp
                             {
                                 user.Guild = cell.NextSibling.InnerText;
                             }
+                            else if (cell.InnerText == "Guild Rank")
+                            {
+                                user.GuildRank = cell.NextSibling.InnerText;
+                            }
                             else if (cell.InnerText == "Created")
                             {
                                 user.Created = cell.NextSibling.InnerText;
@@ -366,11 +370,6 @@ namespace RealmeyeSharp
                         {
                             eq2 = row.SelectSingleNode("td[9]").FirstChild.NextSibling.FirstChild.Attributes[1].Value;
                         }
-                        else if (cell.InnerText == "Guild Rank")
-                        {
-                            user.GuildRank = cell.NextSibling.InnerText;
-                        }
-                        else if (cell.InnerText == "Created")
                         //eq3
                         if (row.SelectSingleNode("td[9]").FirstChild.NextSibling.NextSibling.FirstChild.ChildNodes.Count == 1)
                         {
@@ -611,7 +610,7 @@ namespace RealmeyeSharp
                 }
                 result = true;
             }
-            catch (Exception e)
+            catch ()
             {
                 
             }
