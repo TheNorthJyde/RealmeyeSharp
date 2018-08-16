@@ -84,29 +84,5 @@ namespace RealmeyeSharp
             }
             return result;
         }
-
-        //public static string FindMysterybox()
-        //{
-        //    string result = "";
-        //    ScrapingBrowser browser = new ScrapingBrowser();
-        //    browser.AllowAutoRedirect = true;
-        //    browser.AllowMetaRedirect = true;
-        //    try
-        //    {
-        //        Key key = new Key();
-        //        WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/items/misc"));
-
-        //        var Table = Main.Html.CssSelect(".table-responsive").First().LastChild;
-        //        Table = Table.SelectSingleNode("tbody/tr[2]");
-        //        result = Table.SelectSingleNode("td[3]").InnerText;
-        //        result += " " + Table.SelectSingleNode("td[4]").InnerText;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        result = "could not find backpack";
-
-        //    }
-        //    return result;
-        //}
     }
 }
