@@ -1,9 +1,9 @@
-﻿using ScrapySharp.Extensions;
+using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using System;
 using System.Linq;
 using RealmeyeSharp;
-using system.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Tester
 {
