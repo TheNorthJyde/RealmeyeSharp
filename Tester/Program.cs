@@ -28,6 +28,7 @@ namespace Tester
                 "\nRank: " + user.Rank + 
                 "\nAccount fame: " + user.AccFame + 
                 "\nGuild: " + user.Guild + 
+                "\nGuild Rank: " + user.GuildRank + 
                 "\nCreated: " + user.Created + 
                 "\nPet name: " + user.PetName + 
                 "\nPet stats: " + user.Petstat1 + " " + user.Petlvl1 + " " + user.Petstat2 + " " + user.Petlvl2 + " " + user.Petstat3 + " " + user.Petlvl3 + 
@@ -75,37 +76,18 @@ namespace Tester
         
             #endregion
 
-
+            List<MysteryBox> mysteryBoxes = new List<MysteryBox>();
+            Realm.GetAllMysteryBoxes(mysteryBoxes);
+            foreach (var MysteryBox in mysteryBoxes)
+            {
+                Console.WriteLine($"Name: {MysteryBox.Name}\t" + $"Price: {MysteryBox.Price}\t" + $"Ends at: {MysteryBox.EndsAt}");
+            }
 
 
 
 
             Console.ReadKey();
         }
-        //public static string FindMysterybox()
-        //{
-        //    string result = "";
-        //    ScrapingBrowser browser = new ScrapingBrowser();
-        //    browser.AllowAutoRedirect = true;
-        //    browser.AllowMetaRedirect = true;
-        //    try
-        //    {
-        //        Key key = new Key();
-        //        WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/items/mystery-boxes"));
-
-        //        var Table = Main.Html.CssSelect(".col-md-12").First().FirstChild.NextSibling.FirstChild;
-        //        var jackpot = Table.FirstChild;
-        //        Table = Table.SelectSingleNode(".row[2]");
-        //        result = Table.SelectSingleNode("td[3]").InnerText;
-        //        result += " " + Table.SelectSingleNode("td[4]").InnerText;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        result = "could not find backpack";
-
-        //    }
-        //    return result;
-        //}
 
     }
 }
