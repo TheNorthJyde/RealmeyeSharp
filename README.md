@@ -7,11 +7,13 @@ Go to tester and look at the Program.cs for more help.
 
 How to use:
 
-User user = Realm.GetAllUserInfo(String IGN)
+User user = new User()
+
+Realm.GetAllUserInfo(String IGN, User user)
 
 you need to use Summary before you can use anything else.
 
-User user = Realm.GetUserSummary(string IGN)
+Realm.GetUserSummary(string IGN, User user)
 
 Realm.GetUserPetStats(User user)
 
