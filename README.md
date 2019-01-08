@@ -7,11 +7,13 @@ Go to tester and look at the Program.cs for more help.
 
 How to use:
 
-User user = Realm.GetAllUserInfo(String IGN)
+User user = new User()
+
+Realm.GetAllUserInfo(String IGN, User user)
 
 you need to use Summary before you can use anything else.
 
-User user = Realm.GetUserSummary(string IGN)
+Realm.GetUserSummary(string IGN, User user)
 
 Realm.GetUserPetStats(User user)
 
@@ -37,6 +39,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 My IGN in realm is: [Celestial](https://www.realmeye.com/player/Celestial)
 
 # Helper
-I have gotten some ideas from:
-Github: [thesuicideheart](https://github.com/thesuicideheart/)
-Realmeye: [Coldness](https://www.realmeye.com/player/Coldness)
+
+Additions made by: 
+Github: [Argocyte](https://github.com/Argocyte/)
+Realmeye: [Argocyte](https://www.realmeye.com/player/Argocyte)

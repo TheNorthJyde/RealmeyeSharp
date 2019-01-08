@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using HtmlAgilityPack;
@@ -57,6 +58,10 @@ namespace RealmeyeSharp
                         else if (cell.InnerText == "Guild")
                         {
                             user.Guild = cell.NextSibling.InnerText;
+                        }
+                        else if (cell.InnerText == "Guild Rank")
+                        {
+                            user.GuildRank = cell.NextSibling.InnerText;
                         }
                         else if (cell.InnerText == "Created")
                         {
@@ -302,6 +307,10 @@ namespace RealmeyeSharp
                             {
                                 user.Guild = cell.NextSibling.InnerText;
                             }
+                            else if (cell.InnerText == "Guild Rank")
+                            {
+                                user.GuildRank = cell.NextSibling.InnerText;
+                            }
                             else if (cell.InnerText == "Created")
                             {
                                 user.Created = cell.NextSibling.InnerText;
@@ -433,5 +442,180 @@ namespace RealmeyeSharp
 
             return result;
         }
+        
+        /// <summary>
+        /// Will get you Guild: name, char amount, fame, most active on and description.
+        /// </summary>
+        /// <param name="guildName"></param>
+        /// <param name="guild"></param>
+        /// <returns></returns>
+        public static bool GetGuildSummary(string guildName, Guild guild)
+        {
+            guildName = guildName.Replace(" ", "%20");
+            result = false;
+            ScrapingBrowser browser = new ScrapingBrowser();
+            browser.AllowAutoRedirect = true;
+            browser.AllowMetaRedirect = true;
+            try
+            {
+                WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/guild/" + guildName));
+                HtmlNode Username = Main.Html.CssSelect(".entity-name").First();
+                guild.Name = Username.InnerText;
+                try
+                {
+                    var Table1 = Main.Html.CssSelect("#d").First();
+                    guild.Desc1 = Table1.FirstChild.InnerText;
+                    guild.Desc2 = Table1.FirstChild.NextSibling.InnerText;
+                    guild.Desc3 = Table1.FirstChild.NextSibling.NextSibling.InnerText;
+                }
+                catch
+                {
+                    guild.Desc1 = "Private";
+                    guild.Desc2 = "Private";
+                    guild.Desc3 = "Private";
+                }
+
+                var Table2 = Main.Html.CssSelect(".summary").First();
+
+                foreach (var row in Table2.SelectNodes("tr"))
+                {
+                    foreach (var cell in row.SelectNodes("td[1]"))
+                    {
+                        if (cell.InnerText == "Members")
+                        {
+                            guild.MemberCount = cell.NextSibling.InnerText;
+                        }
+                        else if (cell.InnerText == "Characters")
+                        {
+                            guild.Chars = cell.NextSibling.InnerText;
+                        }
+                        else if (cell.InnerText == "Fame")
+                        {
+                            guild.Fame = cell.NextSibling.InnerText;
+                        }
+                        else if (cell.InnerText == "Most active on")
+                        {
+                            guild.MostActiveOn = cell.NextSibling.InnerText;
+                        }
+                    }
+                }
+                result = true;
+            }
+            catch (Exception)
+            {
+                guild.Name = "Private";
+            }
+            return result;
+        }
+        
+        /// <summary>
+        /// will get you all Guild members
+        /// </summary>
+        /// <param name="guild"></param>
+        /// <returns></returns>
+        public static bool GetGuildMembers(Guild guild)
+        {
+            string guildName = guild.Name;
+            int offset = 0;
+            if (guildName.Contains(' '))
+            {
+                guildName = guildName.Replace(" ", "%20");
+                offset = 1;
+            }
+            result = false;
+            ScrapingBrowser browser = new ScrapingBrowser();
+            browser.AllowAutoRedirect = true;
+            browser.AllowMetaRedirect = true;
+
+            ObservableCollection<Member> member = new ObservableCollection<Member>();
+            try
+            {
+                WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/guild/" + guildName));
+                Console.WriteLine("https://www.realmeye.com/guild/" + guildName);
+                var Table = Main.Html.CssSelect(".table-responsive").First().LastChild;
+
+                foreach (var row in Table.SelectNodes("tbody/tr"))
+                {
+                    guild.Members.Add(new Member(
+                        row.SelectSingleNode($"td[{1 + offset}]").InnerText,
+                        row.SelectSingleNode($"td[{2 + offset}]").InnerText,
+                        int.Parse(row.SelectSingleNode($"td[{3 + offset}]").InnerText),
+                        int.Parse(row.SelectSingleNode($"td[{5 + offset}]").InnerText),
+                        int.Parse(row.SelectSingleNode($"td[{6 + offset}]").InnerText)
+                        ));
+                }
+                result = true;
+            }
+            catch (Exception)
+            {
+                guild.Name = "Private";
+            }
+            return result;
+        }
+        
+        /// <summary>
+        /// will get you all mystery boxes
+        /// </summary>
+        /// <param name="mysteryBoxes"></param>
+        /// <returns></returns>
+        public static bool GetAllMysteryBoxes(List<MysteryBox> mysteryBoxes)
+        {
+            ScrapingBrowser browser = new ScrapingBrowser
+            {
+                AllowAutoRedirect = true,
+                AllowMetaRedirect = true
+            };
+            try
+            {
+                WebPage Main = browser.NavigateToPage(new Uri("https://www.realmeye.com/items/mystery-boxes"));
+                var Boxes = Main.Html.CssSelect(".col-md-12").First();
+                foreach (var Box in Boxes.CssSelect(".well"))
+                {
+                    MysteryBox box = new MysteryBox
+                    {
+                        Name = Box.SelectSingleNode("h3").InnerHtml.Split('"')[0].Split('<')[0].Replace("&apos;", "'"),
+                        Price = Box.SelectSingleNode("h3/span").InnerText,
+                        EndsAt = Box.SelectSingleNode("small/span").InnerText
+                    };
+                    foreach (var Prize in Box.CssSelect(".prize"))
+                    {
+                        MPrize prize = new MPrize();
+                        if (Box.CssSelect(".prize.jackpot") != null)
+                        {
+                            prize.Jackpot = true;
+                        }
+                        else
+                        {
+                            prize.Jackpot = false;
+                        }
+                        foreach (var Item in Prize.CssSelect(".item"))
+                        {
+                            MItem item = new MItem
+                            {
+                                Name = Item.ParentNode.InnerHtml.Split('"')[3],
+                                Quantity = "1"
+                            };
+                            if (Prize.CssSelect(".item-quantity-static") != null)
+                            {
+                                foreach (var ItemQ in Prize.CssSelect(".item-quantity-static"))
+                                {
+                                    item.Quantity = ItemQ.InnerText;
+                                }
+                            }
+                            prize.Items.Add(item);
+                        }
+                        box.Prizes.Add(prize);
+                    }
+                    mysteryBoxes.Add(box);
+                }
+                result = true;
+            }
+            catch ()
+            {
+                
+            }
+            return result;
+        }
+        
     }
 }
