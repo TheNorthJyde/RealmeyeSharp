@@ -12,6 +12,7 @@ namespace Tester
         
         static void Main(string[] args)
         {
+            
             #region realm
             
             User user = new User();
@@ -42,8 +43,10 @@ namespace Tester
                 i++;
             }
 
+
             //Example GetAllUserInfo(IGN)
             Console.Write("\nWrite ur ign again to test this function \nIGN: ");
+            user = new User();
             Realm.GetAllUserInfo(Console.ReadLine(), user);
 
             Console.WriteLine("Name: " + user.Name +
@@ -68,11 +71,7 @@ namespace Tester
             }
             Console.ReadKey();
 
-             //Starts a new instance of the program itself
-            System.Diagnostics.Process.Start("Tester.exe");
-
-             //Closes the current process
-            Environment.Exit(0);
+            Console.Clear();
             
         
             #endregion
@@ -83,9 +82,13 @@ namespace Tester
             {
                 Console.WriteLine($"Name: {MysteryBox.Name}\t" + $"Price: {MysteryBox.Price}\t" + $"Ends at: {MysteryBox.EndsAt}");
             }
+            Console.ReadKey();
 
+            //Starts a new instance of the program itself
+            System.Diagnostics.Process.Start("Tester.exe");
 
-
+            //Closes the current process
+            Environment.Exit(0);
 
             Console.ReadKey();
         }

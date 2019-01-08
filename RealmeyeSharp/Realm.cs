@@ -610,7 +610,7 @@ namespace RealmeyeSharp
                 }
                 result = true;
             }
-            catch ()
+            catch (Exception e)
             {
                 
             }
