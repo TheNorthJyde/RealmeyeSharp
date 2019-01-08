@@ -38,10 +38,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 # Author
 My IGN in realm is: [Celestial](https://www.realmeye.com/player/Celestial)
 
-# Helpers
-I have gotten some ideas from:
-Github: [thesuicideheart](https://github.com/thesuicideheart/)
-Realmeye: [Coldness](https://www.realmeye.com/player/Coldness)
+# Helper
 
 Additions made by: 
 Github: [Argocyte](https://github.com/Argocyte/)
