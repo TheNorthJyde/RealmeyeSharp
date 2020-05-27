@@ -1,5 +1,5 @@
 # RealmeyeSharp not up to date
-[Realmeye API](https://www.realmeye.com/) that gets information of [realmeye](https://www.realmeye.com/) to mostly string variable in C#
+[Realmeye](https://www.realmeye.com/) SDK that gets information of [realmeye](https://www.realmeye.com/) to mostly string variable in C#
 
 I have made it using web scraping.
 # Example
