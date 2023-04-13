@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace RealmeyeSharp
+namespace EyeSharp
 {
     public class User
     {
         public string Name { get; internal set; }
-        public UserDescription Description { get; internal set; }
+        public Description Description { get; internal set; }
         public string Chars { get; internal set; }
         public string Skins { get; internal set; }
         public string Fame { get; internal set; }
@@ -59,15 +59,4 @@ namespace RealmeyeSharp
         public string Armor { get; }
         public string Ring { get; }
     }
-}
-
-public class UserDescription
-{
-    internal UserDescription()
-    {
-    }
-
-    public string Desc1 { get; internal set; }
-    public string Desc2 { get; internal set; }
-    public string Desc3 { get; internal set; }
 }

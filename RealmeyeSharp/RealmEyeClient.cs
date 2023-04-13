@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 
-namespace RealmeyeSharp;
+namespace EyeSharp;
 
 public class RealmEyeClient
 {
@@ -36,7 +36,7 @@ public class RealmEyeClient
     public async Task<User> GetUser(string ign)
     {
         var user = new User();
-        var description = new UserDescription();
+        var description = new Description();
 
         var page = await _browser.NavigateToPageAsync(_player.Combine(ign));
         var username = page.Html.CssSelect(".entity-name").First();
@@ -169,6 +169,7 @@ public class RealmEyeClient
     public async Task<Guild> GetGuild(string guildName)
     {
         var guild = new Guild();
+        var description = new Description();
         var offset = 0;
 
         if (guildName.Contains(' '))
@@ -182,45 +183,44 @@ public class RealmEyeClient
             var page = await _browser.NavigateToPageAsync(_guild.Combine(guildName));
             var name = page.Html.CssSelect(".entity-name").First();
             guild.Name = name.InnerText;
-            try
-            {
-                var table1 = page.Html.CssSelect("#d").First();
-                guild.Desc1 = table1.FirstChild.InnerText;
-                guild.Desc2 = table1.FirstChild.NextSibling.InnerText;
-                guild.Desc3 = table1.FirstChild.NextSibling.NextSibling.InnerText;
-            }
-            catch
-            {
-                guild.Desc1 = "Private";
-                guild.Desc2 = "Private";
-                guild.Desc3 = "Private";
-            }
+            
+            var table = page.Html.CssSelect("#d").First();
+            if (table.HasClass("close"))
+                table = page.Html.CssSelect("#e").First();
+        
+            description.Desc1 = table.FirstChild.InnerText;
+            description.Desc2 = table.FirstChild.NextSibling.InnerText;
+            description.Desc3 = table.FirstChild.NextSibling.NextSibling.InnerText;
 
-            var table = page.Html.CssSelect(".summary").First();
+            guild.Description = description;
+
+            table = page.Html.CssSelect(".summary").First();
 
             foreach (var row in table.SelectNodes("tr"))
-            foreach (var cell in row.SelectNodes("td[1]"))
-                switch (cell.InnerText)
-                {
-                    case "Members":
-                        guild.MemberCount = cell.NextSibling.InnerText;
-                        break;
-                    case "Characters":
-                        guild.Chars = cell.NextSibling.InnerText;
-                        break;
-                    case "Fame":
-                        guild.Fame = cell.NextSibling.InnerText;
-                        break;
-                    case "Most active on":
-                        guild.MostActiveOn = cell.NextSibling.InnerText;
-                        break;
-                }
+            {
+                foreach (var cell in row.SelectNodes("td[1]"))
+                    switch (cell.InnerText)
+                    {
+                        case "Members":
+                            guild.MemberCount = cell.NextSibling.InnerText;
+                            break;
+                        case "Characters":
+                            guild.Chars = cell.NextSibling.InnerText;
+                            break;
+                        case "Fame":
+                            guild.Fame = cell.NextSibling.InnerText;
+                            break;
+                        case "Most active on":
+                            guild.MostActiveOn = cell.NextSibling.InnerText;
+                            break;
+                    }
+            }
 
             table = page.Html.CssSelect(".table-responsive").First().LastChild;
-            guild.Members = new ObservableCollection<Member>();
+            guild.Members = new ObservableCollection<GuildMember>();
 
             foreach (var row in table.SelectNodes("tbody/tr"))
-                guild.Members.Add(new Member(
+                guild.Members.Add(new GuildMember(
                     row.SelectSingleNode($"td[{1 + offset}]").InnerText,
                     row.SelectSingleNode($"td[{2 + offset}]").InnerText,
                     int.Parse(row.SelectSingleNode($"td[{3 + offset}]").InnerText),

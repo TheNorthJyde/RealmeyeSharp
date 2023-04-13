@@ -1,6 +1,6 @@
 using HtmlAgilityPack;
 
-namespace RealmeyeSharp;
+namespace EyeSharp;
 
 public class Pet
 {

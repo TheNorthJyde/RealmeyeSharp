@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace RealmeyeSharp;
+namespace EyeSharp;
 
 public class Guild
 {
@@ -9,17 +9,15 @@ public class Guild
     public string Chars { get; internal set; }
     public string Fame { get; internal set; }
     public string MostActiveOn { get; internal set; }
-    public string Desc1 { get; internal set; }
-    public string Desc2 { get; internal set; }
-    public string Desc3 { get; internal set; }
-    public ObservableCollection<Member> Members { get; internal set; } = new();
+    public Description Description { get; internal set; }
+    public ObservableCollection<GuildMember> Members { get; internal set; } = new();
 
     internal Guild()
     {
     }
 }
 
-public class Member
+public class GuildMember
 {
     public string Name { get; }
     public string GuildRank { get; }
@@ -27,7 +25,7 @@ public class Member
     public int Rank { get; }
     public int Chars { get; }
 
-    internal Member(string name, string guildRank, int fame, int rank, int chars)
+    internal GuildMember(string name, string guildRank, int fame, int rank, int chars)
     {
         Name = name;
         GuildRank = guildRank;
