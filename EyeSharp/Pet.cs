@@ -2,14 +2,38 @@ using HtmlAgilityPack;
 
 namespace EyeSharp;
 
+/// <summary>
+/// A <see cref="User"/>'s pet
+/// </summary>
 public class Pet
 {
+    /// <summary>
+    /// What pet it is
+    /// </summary>
     public string Name { get; }
+    /// <summary>
+    /// Pet rarity
+    /// </summary>
     public PetRarity Rarity { get; }
+    /// <summary>
+    /// Pet family
+    /// </summary>
     public PetFamily Family { get; }
+    /// <summary>
+    /// First unlocked ability
+    /// </summary>
     public PetAbility Ability1 { get; }
+    /// <summary>
+    /// Second unlocked ability
+    /// </summary>
     public PetAbility Ability2 { get; }
+    /// <summary>
+    /// Third unlocked ability
+    /// </summary>
     public PetAbility Ability3 { get; }
+    /// <summary>
+    /// Max potential level
+    /// </summary>
     public int MaxLevel { get; }
     
     internal Pet(HtmlNode row)
@@ -53,6 +77,9 @@ public class Pet
     }
 }
 
+/// <summary>
+/// A pet ability
+/// </summary>
 public class PetAbility
 {
     internal PetAbility(string type, string level)
@@ -61,7 +88,13 @@ public class PetAbility
         Level = int.TryParse(level, out var lvl) ? lvl : -1;
     }
 
+    /// <summary>
+    /// Ability type
+    /// </summary>
     public PetAbilityType Type { get; }
+    /// <summary>
+    /// Ability level
+    /// </summary>
     public int Level { get; }
 
     private PetAbilityType ToPetAbilityType(string input)
@@ -81,6 +114,9 @@ public class PetAbility
     }
 }
 
+/// <summary>
+/// Pet rarity
+/// </summary>
 public enum PetRarity
 {
     Common,
@@ -90,6 +126,9 @@ public enum PetRarity
     Divine
 }
 
+/// <summary>
+/// Pet ability type
+/// </summary>
 public enum PetAbilityType
 {
     None,
@@ -103,6 +142,9 @@ public enum PetAbilityType
     AttackClose
 }
 
+/// <summary>
+/// The pet family
+/// </summary>
 public enum PetFamily
 {
     Avian,
