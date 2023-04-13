@@ -1,37 +1,38 @@
 using System.Collections.ObjectModel;
 
-namespace RealmeyeSharp
+namespace RealmeyeSharp;
+
+public class Guild
 {
-    public class Guild
-    {
-        public string Name { get; set; }
-        public string MemberCount { get; set; }
-        public string Chars { get; set; }
-        public string Fame { get; set; }
-        public string MostActiveOn { get; set; }
-        public string Desc1 { get; set; }
-        public string Desc2 { get; set; }
-        public string Desc3 { get; set; }
-        public ObservableCollection<Member> Members { get; set; } = new ObservableCollection<Member>();
+    public string Name { get; internal set; }
+    public string MemberCount { get; internal set; }
+    public string Chars { get; internal set; }
+    public string Fame { get; internal set; }
+    public string MostActiveOn { get; internal set; }
+    public string Desc1 { get; internal set; }
+    public string Desc2 { get; internal set; }
+    public string Desc3 { get; internal set; }
+    public ObservableCollection<Member> Members { get; internal set; } = new();
 
-        public Guild() { }
+    internal Guild()
+    {
     }
-    
-    public class Member
-    {
-        public string Name { get; set; }
-        public string GuildRank { get; set; }
-        public int Fame { get; set; }
-        public int Rank { get; set; }
-        public int Chars { get; set; }
+}
 
-        public Member(string name, string guildRank, int fame, int rank, int chars)
-        {
-            Name = name;
-            GuildRank = guildRank;
-            Fame = fame;
-            Rank = rank;
-            Chars = chars;
-        }
+public class Member
+{
+    public string Name { get; }
+    public string GuildRank { get; }
+    public int Fame { get; }
+    public int Rank { get; }
+    public int Chars { get; }
+
+    internal Member(string name, string guildRank, int fame, int rank, int chars)
+    {
+        Name = name;
+        GuildRank = guildRank;
+        Fame = fame;
+        Rank = rank;
+        Chars = chars;
     }
 }
