@@ -16,6 +16,7 @@ public class RealmEyeClient
     private readonly Uri _player = new("https://www.realmeye.com/player/");
     private readonly Uri _pets = new("https://www.realmeye.com/pets-of/");
     private readonly Uri _guild = new("https://www.realmeye.com/guild/");
+    private readonly Uri _exaltations = new("https://www.realmeye.com/exaltations-of/");
 
     private async Task<WebPage> DoRequest(Uri uri)
     {
@@ -111,36 +112,36 @@ public class RealmEyeClient
 
         foreach (var row in table.SelectNodes("tbody/tr"))
         {
-            var t = row.SelectSingleNode("td[7]").ChildNodes.Count == 5;
+            var t = row.SelectSingleNode("td[6]").ChildNodes.Count == 5;
 
-            var weapon = FixItemString(row.SelectSingleNode("td[7]").FirstChild.FirstChild.ChildNodes.Count == 1
-                ? row.SelectSingleNode("td[7]").FirstChild.FirstChild.FirstChild.Attributes[1].Value
-                : row.SelectSingleNode("td[7]").FirstChild.FirstChild.Attributes[1].Value);
+            var weapon = FixItemString(row.SelectSingleNode("td[6]").FirstChild.FirstChild.ChildNodes.Count == 1
+                ? row.SelectSingleNode("td[6]").FirstChild.FirstChild.FirstChild.Attributes[1].Value
+                : row.SelectSingleNode("td[6]").FirstChild.FirstChild.Attributes[1].Value);
 
-            var ability = FixItemString(row.SelectSingleNode("td[7]").FirstChild.NextSibling.FirstChild.ChildNodes.Count == 1
-                ? row.SelectSingleNode("td[7]").FirstChild.NextSibling.FirstChild.FirstChild.Attributes[1].Value
-                : row.SelectSingleNode("td[7]").FirstChild.NextSibling.FirstChild.Attributes[1].Value);
+            var ability = FixItemString(row.SelectSingleNode("td[6]").FirstChild.NextSibling.FirstChild.ChildNodes.Count == 1
+                ? row.SelectSingleNode("td[6]").FirstChild.NextSibling.FirstChild.FirstChild.Attributes[1].Value
+                : row.SelectSingleNode("td[6]").FirstChild.NextSibling.FirstChild.Attributes[1].Value);
 
-            var armor = FixItemString(row.SelectSingleNode("td[7]").FirstChild.NextSibling.NextSibling.FirstChild.ChildNodes.Count ==
+            var armor = FixItemString(row.SelectSingleNode("td[6]").FirstChild.NextSibling.NextSibling.FirstChild.ChildNodes.Count ==
                                       1
-                    ? row.SelectSingleNode("td[7]").FirstChild.NextSibling.NextSibling.FirstChild.FirstChild
+                    ? row.SelectSingleNode("td[6]").FirstChild.NextSibling.NextSibling.FirstChild.FirstChild
                         .Attributes[1].Value
-                    : row.SelectSingleNode("td[7]").FirstChild.NextSibling.NextSibling.FirstChild.Attributes[1]
+                    : row.SelectSingleNode("td[6]").FirstChild.NextSibling.NextSibling.FirstChild.Attributes[1]
                         .Value);
 
-            var ring = FixItemString(row.SelectSingleNode("td[7]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild
+            var ring = FixItemString(row.SelectSingleNode("td[6]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild
                 .ChildNodes
                 .Count == 1
-                ? row.SelectSingleNode("td[7]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild
+                ? row.SelectSingleNode("td[6]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild
                     .FirstChild.Attributes[1].Value
-                : row.SelectSingleNode("td[7]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild
+                : row.SelectSingleNode("td[6]").FirstChild.NextSibling.NextSibling.NextSibling.FirstChild
                     .Attributes[1].Value);
 
-            var name = row.SelectSingleNode("td[3]").InnerText;
-            var lvl = Convert.ToInt32(row.SelectSingleNode("td[4]").InnerText);
-            var fame = Convert.ToInt32(row.SelectSingleNode("td[5]").InnerText);
+            var name = row.SelectSingleNode("td[2]").InnerText;
+            var lvl = Convert.ToInt32(row.SelectSingleNode("td[3]").InnerText);
+            var fame = Convert.ToInt32(row.SelectSingleNode("td[4]").InnerText);
             var equipment = new ClassEquipment(weapon, ability, armor, ring);
-            var stats = row.SelectSingleNode("td[8]").InnerText;
+            var stats = row.SelectSingleNode("td[7]").InnerText;
             
             user.Characters.Add(new Character(name,
                 lvl,
@@ -287,5 +288,74 @@ public class RealmEyeClient
             ));
 
         return guild;
+    }
+
+    public async Task<UserExaltations> GetExaltationsAsync(User user)
+    {
+        if (string.IsNullOrWhiteSpace(user?.Name))
+            return null;
+
+        return await GetExaltations(user.Name);
+    }
+
+    public async Task<UserExaltations> GetExaltationsAsync(string ign)
+    {
+        if (string.IsNullOrWhiteSpace(ign))
+            return null;
+
+        return await GetExaltations(ign);
+    }
+
+    private async Task<UserExaltations> GetExaltations(string ign)
+    {
+        var page = await DoRequest(_exaltations.Combine(ign));
+        var exaltations = page.Html.CssSelect("h3").First()?.InnerText;
+        exaltations = exaltations.Split(':')[1];
+        var userExalt = new UserExaltations();
+        var exaltationList = new List<Exaltation>();
+        var totalString = exaltations.Split('/')[0].Trim();
+        userExalt.TotalExaltations = int.TryParse(totalString, out var total) ? total : 0;
+        var doneString = exaltations.Split('/')[1].Trim().Split('~')[0].Trim().Replace("&nbsp;", "");
+        userExalt.PercentageDone = userExalt.TotalExaltations / double.Parse(doneString);
+        
+        var table = page.Html.CssSelect(".table-responsive").First().LastChild;
+
+        foreach (var row in table.SelectNodes("tbody/tr"))
+        {
+            var name = row.SelectSingleNode("td[2]").InnerText;
+            var numExalts = int.TryParse(row.SelectSingleNode("td[3]").FirstChild.InnerText, out var exalt) ? exalt : 0;
+
+            var exalts = new List<ExaltedStat>();
+            var hp = row.SelectSingleNode("td[4]");
+            if (hp.HasChildNodes)
+                exalts.Add(new ExaltedStat(ExaltStatType.Health, int.Parse(hp.FirstChild.InnerText.Remove(0,1))));
+            var mp = row.SelectSingleNode("td[5]");
+            if (mp.HasChildNodes)
+                exalts.Add(new ExaltedStat(ExaltStatType.Mana, int.Parse(mp.FirstChild.InnerText.Remove(0,1))));
+            var atk = row.SelectSingleNode("td[6]");
+            if (atk.HasChildNodes)
+                exalts.Add(new ExaltedStat(ExaltStatType.Attack, int.Parse(atk.FirstChild.InnerText.Remove(0,1))));
+            var def = row.SelectSingleNode("td[7]");
+            if (def.HasChildNodes)
+                exalts.Add(new ExaltedStat(ExaltStatType.Defense, int.Parse(def.FirstChild.InnerText.Remove(0,1))));
+            var spd = row.SelectSingleNode("td[8]");
+            if (spd.HasChildNodes)
+                exalts.Add(new ExaltedStat(ExaltStatType.Speed, int.Parse(spd.FirstChild.InnerText.Remove(0,1))));
+            var dex = row.SelectSingleNode("td[9]");
+            if (dex.HasChildNodes)
+                exalts.Add(new ExaltedStat(ExaltStatType.Dexterity, int.Parse(dex.FirstChild.InnerText.Remove(0,1))));
+            var vit = row.SelectSingleNode("td[10]");
+            if (vit.HasChildNodes)
+                exalts.Add(new ExaltedStat(ExaltStatType.Vitality, int.Parse(vit.FirstChild.InnerText.Remove(0,1))));
+            var wis = row.SelectSingleNode("td[11]");
+            if (wis.HasChildNodes)
+                exalts.Add(new ExaltedStat(ExaltStatType.Wisdom, int.Parse(wis.FirstChild.InnerText.Remove(0,1))));
+            
+            exaltationList.Add(new Exaltation(name, numExalts, exalts.ToArray()));
+        }
+
+        userExalt.Exaltations = exaltationList.AsReadOnly();
+
+        return userExalt;
     }
 }
